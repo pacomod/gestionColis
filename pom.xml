@@ -3,11 +3,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>fr.formation</groupId>
-	<artifactId>gestioncolis</artifactId>
+	<artifactId>gestionColisGD</artifactId>
 	<packaging>war</packaging>
 	<version>0.0.1</version>
 
-	<name>gestioncolis Maven Webapp</name>
+	<name>gestionColis Maven Webapp</name>
 	<url>http://maven.apache.org</url>
 
 	<properties>
@@ -75,7 +75,7 @@
 	</repositories>
 
 	<build>
-		<finalName>gestioncolis</finalName>
+		<finalName>gestionColisGD</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
