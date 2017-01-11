@@ -37,7 +37,7 @@ public class Commande implements Serializable {
 	@Column(name="DATE_ENVOI")
 	private Date dateEnvoi;
 
-	//bi-directional many-to-one association to Bordereau
+	//bi-directional many-to-one association to BordereauDao
 	@OneToMany(mappedBy="commandeBean")
 	private List<Bordereau> bordereaux;
 
