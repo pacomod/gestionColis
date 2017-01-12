@@ -66,8 +66,8 @@ public abstract class AbstractDao<ENTITY> {
 		this.executeWithTransaction(() -> this.em.merge(entity));
 	}
 
-	public void delete(final ENTITY entity) {
-		this.executeWithTransaction(() -> this.em.remove(entity));
+	public void delete(final Integer id) {
+		this.executeWithTransaction(() -> this.em.remove(this.read(id)));
 	}
 
 }

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui">
+
+<ui:composition template="../template.xhtml">
+	<ui:define name="content">
+		<b:container>
+			<h3>Liste des produits</h3>
+			<b:well>
+				<b:form>
+					<b:dataTable value="#{coordonneesController.coordonnees}"
+						var="coordonnees"
+						customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/French.json">
+						<b:dataTableColumn style-class='hidden'>
+							<f:facet name="header">Id</f:facet>
+							<h:outputText value="#{coordonnees.id}" style-class='hidden' />
+						</b:dataTableColumn>
+						<b:dataTableColumn>
+							<f:facet name="header">Prénom</f:facet>
+							<h:outputText value="#{coordonnees.firstname}" />
+						</b:dataTableColumn>
+						<b:dataTableColumn>
+							<f:facet name="header">Nom</f:facet>
+							<h:outputText value="#{coordonnees.lastname}" />
+						</b:dataTableColumn>
+						<b:dataTableColumn>
+							<f:facet name="header">Adresse (ligne 1)</f:facet>
+							<h:outputText value="#{coordonnees.addressLine1}" />
+						</b:dataTableColumn>
+						<b:dataTableColumn>
+							<f:facet name="header">Adresse (ligne 2)</f:facet>
+							<h:outputText value="#{coordonnees.addressLine2}" />
+						</b:dataTableColumn>
+						<b:dataTableColumn>
+							<f:facet name="header">Code postal</f:facet>
+							<h:outputText value="#{coordonnees.postalCode}" />
+						</b:dataTableColumn>
+						<b:dataTableColumn>
+							<f:facet name="header">Ville</f:facet>
+							<h:outputText value="#{coordonnees.city}" />
+						</b:dataTableColumn>
+						<b:dataTableColumn>
+							<f:facet name="header">Pays</f:facet>
+							<h:outputText value="#{coordonnees.country}" />
+						</b:dataTableColumn>
+						<b:dataTableColumn>
+							<f:facet name="header">Numéro de téléphone</f:facet>
+							<h:outputText value="#{coordonnees.phoneNumber}" />
+						</b:dataTableColumn>
+						<b:dataTableColumn>
+							<f:facet name="header">e-mail</f:facet>
+							<h:outputText value="#{coordonnees.email}" />
+						</b:dataTableColumn>
+						<b:dataTableColumn>
+							<f:facet name="header">Action</f:facet>
+							<div class="btn-toolbar">
+								<b:commandButton
+									action="#{coordonneesController.update(coordonnees)}"
+									class="btn btn-sm btn-primary" look="warning">
+									<span><i class="glyphicon glyphicon-edit"></i></span> Modifier
+							</b:commandButton>
+								<b:commandButton
+									action="#{coordonneesController.delete(coordonnees)}"
+									class="btn btn-sm btn-primary" look="danger">
+									<span><i class="glyphicon glyphicon-remove"></i></span> Supprimer
+							</b:commandButton>
+							</div>
+						</b:dataTableColumn>
+					</b:dataTable>
+				</b:form>
+			</b:well>
+		</b:container>
+	</ui:define>
+</ui:composition>
+</html>

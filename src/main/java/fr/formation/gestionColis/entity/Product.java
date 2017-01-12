@@ -1,46 +1,53 @@
 package fr.formation.gestionColis.entity;
 
 import java.io.Serializable;
-import javax.persistence.*;
 import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 /**
  * The persistent class for the colis database table.
  * 
  */
 @Entity
-@Table(name="colis")
-@NamedQuery(name="Product.findAll", query="SELECT p FROM Product p")
+@Table(name = "colis")
+@NamedQuery(name = "Product.findAll", query = "SELECT p FROM Product p")
 public class Product implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="ID")
-	private int id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "ID")
+	private Integer id;
 
-	@Column(name="INTITULE")
+	@Column(name = "INTITULE")
 	private String intitule;
 
-	@Column(name="POIDS")
+	@Column(name = "POIDS")
 	private float poids;
 
-	@Column(name="REFERENCE")
+	@Column(name = "REFERENCE")
 	private String reference;
 
-	//bi-directional many-to-one association to Paquet
-	@OneToMany(mappedBy="coli")
+	// bi-directional many-to-one association to Paquet
+	@OneToMany(mappedBy = "coli")
 	private List<Paquet> paquets;
 
 	public Product() {
 	}
 
-	public int getId() {
+	public Integer getId() {
 		return this.id;
 	}
 
-	public void setId(int id) {
+	public void setId(final Integer id) {
 		this.id = id;
 	}
 
@@ -48,7 +55,7 @@ public class Product implements Serializable {
 		return this.intitule;
 	}
 
-	public void setIntitule(String intitule) {
+	public void setIntitule(final String intitule) {
 		this.intitule = intitule;
 	}
 
@@ -56,7 +63,7 @@ public class Product implements Serializable {
 		return this.poids;
 	}
 
-	public void setPoids(float poids) {
+	public void setPoids(final float poids) {
 		this.poids = poids;
 	}
 
@@ -64,7 +71,7 @@ public class Product implements Serializable {
 		return this.reference;
 	}
 
-	public void setReference(String reference) {
+	public void setReference(final String reference) {
 		this.reference = reference;
 	}
 
@@ -72,19 +79,19 @@ public class Product implements Serializable {
 		return this.paquets;
 	}
 
-	public void setPaquets(List<Paquet> paquets) {
+	public void setPaquets(final List<Paquet> paquets) {
 		this.paquets = paquets;
 	}
 
-	public Paquet addPaquet(Paquet paquet) {
-		getPaquets().add(paquet);
+	public Paquet addPaquet(final Paquet paquet) {
+		this.getPaquets().add(paquet);
 		paquet.setColi(this);
 
 		return paquet;
 	}
 
-	public Paquet removePaquet(Paquet paquet) {
-		getPaquets().remove(paquet);
+	public Paquet removePaquet(final Paquet paquet) {
+		this.getPaquets().remove(paquet);
 		paquet.setColi(null);
 
 		return paquet;
