@@ -10,32 +10,28 @@ import javax.faces.bean.ViewScoped;
 public class EtatBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	private Integer id;
-	private String nom;
-	// private int ordre;
 
+	private Integer id;
+
+	private String nom;
+
+	/** 	 * @return the id	 */
 	public Integer getId() {
 		return this.id;
 	}
 
-	public void setId(final Integer id) {
-		this.id = id;
-	}
-
+	/**	 * @return the nom	 */
 	public String getNom() {
 		return this.nom;
 	}
 
+	/**	 * @param id the id to set	 */
+	public void setId(final Integer id) {
+		this.id = id;
+	}
+
+	/**	 * @param nom the nom to set	 */
 	public void setNom(final String nom) {
 		this.nom = nom;
 	}
-
-	// public int getOrdre() {
-	// return this.ordre;
-	// }
-	//
-	// public void setOrdre(final int ordre) {
-	// this.ordre = ordre;
-	// }
-
 }

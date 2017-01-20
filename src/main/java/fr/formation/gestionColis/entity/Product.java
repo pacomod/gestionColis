@@ -3,7 +3,6 @@ package fr.formation.gestionColis.entity;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,7 +13,7 @@ import javax.persistence.Table;
 
 /**
  * The persistent class for the colis database table.
- * 
+ *
  */
 @Entity
 @Table(name = "colis")
@@ -24,63 +23,19 @@ public class Product implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "ID")
 	private Integer id;
 
-	@Column(name = "INTITULE")
 	private String intitule;
-
-	@Column(name = "POIDS")
-	private float poids;
-
-	@Column(name = "REFERENCE")
-	private String reference;
 
 	// bi-directional many-to-one association to Paquet
 	@OneToMany(mappedBy = "coli")
 	private List<Paquet> paquets;
 
+	private float poids;
+
+	private String reference;
+
 	public Product() {
-	}
-
-	public Integer getId() {
-		return this.id;
-	}
-
-	public void setId(final Integer id) {
-		this.id = id;
-	}
-
-	public String getIntitule() {
-		return this.intitule;
-	}
-
-	public void setIntitule(final String intitule) {
-		this.intitule = intitule;
-	}
-
-	public float getPoids() {
-		return this.poids;
-	}
-
-	public void setPoids(final float poids) {
-		this.poids = poids;
-	}
-
-	public String getReference() {
-		return this.reference;
-	}
-
-	public void setReference(final String reference) {
-		this.reference = reference;
-	}
-
-	public List<Paquet> getPaquets() {
-		return this.paquets;
-	}
-
-	public void setPaquets(final List<Paquet> paquets) {
-		this.paquets = paquets;
 	}
 
 	public Paquet addPaquet(final Paquet paquet) {
@@ -90,11 +45,70 @@ public class Product implements Serializable {
 		return paquet;
 	}
 
+	public Integer getId() {
+		return this.id;
+	}
+
+	public String getIntitule() {
+		return this.intitule;
+	}
+
+	public List<Paquet> getPaquets() {
+		return this.paquets;
+	}
+
+	public float getPoids() {
+		return this.poids;
+	}
+
+	public String getReference() {
+		return this.reference;
+	}
+
 	public Paquet removePaquet(final Paquet paquet) {
 		this.getPaquets().remove(paquet);
 		paquet.setColi(null);
 
 		return paquet;
+	}
+
+	public void setId(final Integer id) {
+		this.id = id;
+	}
+
+	public void setIntitule(final String intitule) {
+		this.intitule = intitule;
+	}
+
+	public void setPaquets(final List<Paquet> paquets) {
+		this.paquets = paquets;
+	}
+
+	public void setPoids(final float poids) {
+		this.poids = poids;
+	}
+
+	public void setReference(final String reference) {
+		this.reference = reference;
+	}
+
+	@Override
+	public String toString() {
+		final StringBuilder sb = new StringBuilder("Product[");
+		sb.append("Id:");
+		sb.append(this.id != null ? this.id : "null");
+		sb.append(",");
+		sb.append("Intitulé:");
+		sb.append(this.intitule != null ? this.intitule : "null");
+		sb.append(",");
+		sb.append("Poids:");
+		sb.append(this.poids);
+		sb.append(",");
+		sb.append("Référence:");
+		sb.append(this.reference != null ? this.reference : "null");
+
+		sb.append(']');
+		return sb.toString();
 	}
 
 }

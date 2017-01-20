@@ -10,24 +10,21 @@ import java.util.Date;
  * 
  */
 @Entity
-@Table(name="liasse")
+@Table(name = "liasse")
 @NamedQuery(name="Liasse.findAll", query="SELECT l FROM Liasse l")
 public class Liasse implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="ID")
 	private int id;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="DATE_SIGNATURE")
 	private Date dateSignature;
 
-	@Column(name="NATURE")
 	private String nature;
 
-	@Column(name="VALEUR")
 	private double valeur;
 
 	//bi-directional many-to-one association to Commande

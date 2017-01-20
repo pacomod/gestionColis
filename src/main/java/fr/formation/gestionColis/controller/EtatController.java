@@ -7,6 +7,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
+import org.primefaces.event.SelectEvent;
+import org.primefaces.event.UnselectEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,79 +17,137 @@ import fr.formation.gestionColis.bean.EtatOrderBean;
 import fr.formation.gestionColis.dao.EtatDao;
 import fr.formation.gestionColis.entity.Etat;
 import fr.formation.gestionColis.exception.CreateEntityException;
+import fr.formation.gestionColis.exception.DeleteEntityException;
+import fr.formation.gestionColis.exception.UpdateEntityException;
 import net.bootsfaces.utils.FacesMessages;
 
 @ManagedBean
 @ViewScoped
 public class EtatController implements Serializable {
 
-	private static final long serialVersionUID = 1L;
-
 	private static final Logger LOGGER = LoggerFactory
 			.getLogger(EtatController.class);
+
+	private static final long serialVersionUID = 1L;
+
+	@ManagedProperty("#{etatBean}")
+	private EtatBean etatBean;
 
 	@ManagedProperty("#{etatDao}")
 	private EtatDao etatDao;
 
-	@ManagedProperty("#{etatBean}")
-	private EtatBean etatBean;
+	private int etatId;
 
 	@ManagedProperty("#{etatOrderBean}")
 	private EtatOrderBean etatOrderBean;
 
 	@PostConstruct
 	public void _init() {
-		this.etatOrderBean.refresh();
+		this.etatId = -1;
 	}
 
-	public EtatBean getEtatBean() {
-		return this.etatBean;
+	public void delete() {
+		if (this.etatId >= 0) {
+			try {
+				this.etatDao.delete(this.etatId);
+				FacesMessages.info(
+						"Etat d'id " + this.etatId + " supprimé avec succès.");
+			} catch (final DeleteEntityException e) {
+				EtatController.LOGGER.error(
+						"Erreur pendant la suppression d'un nouvel etat", e);
+				FacesMessages.error(
+						"Impossible de supprimer l'état d'id " + this.etatId);
+			}
+			this.etatId = -1;
+			this.etatOrderBean.refresh();
+		} else {
+			FacesMessages
+					.error("Impossible de supprimer : aucun état sélectionné.");
+		}
 	}
 
-	public EtatDao getEtatDao() {
-		return this.etatDao;
-	}
-
-	public EtatOrderBean getEtatOrderBean() {
-		return this.etatOrderBean;
+	/**
+	 * @return the etatId
+	 */
+	public int getEtatId() {
+		return this.etatId;
 	}
 
 	public void save() {
-		EtatController.LOGGER.info("Sauvegarde de l'état");
+		EtatController.LOGGER.debug("Sauvegarde de etatBean en BDD.");
 		if (this.etatBean.getId() == null) {
 			try {
 				final Etat etat = new Etat(this.etatBean.getNom());
-				etat.setOrdre(this.etatOrderBean.getEtats().size());
+				etat.setOrdre(this.etatOrderBean.getList().size());
 				this.etatDao.create(etat);
-				FacesMessages.info(
-						"Nouvel état " + this.etatBean.getNom() + "créé avec succès.");
+				FacesMessages.info("Nouvel état '" + this.etatBean.getNom()
+						+ "' créé avec succès.");
 				this.etatBean.setNom(null);
 			} catch (final CreateEntityException e) {
-				EtatController.LOGGER
-						.error("Erreur pendant la création d'un nouvel état", e);
-				FacesMessages.error(
-						"Impossible de créer l'état avec le nom " + this.etatBean.getNom());
+				EtatController.LOGGER.error(
+						"Erreur pendant la création d'un nouvel etat", e);
+				FacesMessages.error("Impossible de créer l'état avec le nom "
+						+ this.etatBean.getNom());
 			}
 		} else {
-			// TODO: Modification
+			// TODO: Modification.
 		}
+		this.etatId = -1;
 		this.etatOrderBean.refresh();
 	}
 
 	public void saveOrder() {
-		EtatController.LOGGER.info("Sauvegarde de l'ordre des état");
+		EtatController.LOGGER.debug("Sauvegarde de l'ordre des états");
+		try {
+			for (final Etat etat : this.etatOrderBean.getList()) {
+				EtatController.LOGGER.debug("Etat : id={}, nom={}, ordre={}",
+						etat.getId(), etat.getNom(), etat.getOrdre());
+				this.etatDao.update(etat);
+			}
+			FacesMessages
+					.info("L'ordre des états à été sauvegadé avec succès.");
+		} catch (final UpdateEntityException e) {
+			EtatController.LOGGER.error(
+					"Erreur pendant la mise à jour de l'ordre des états.", e);
+			FacesMessages
+					.error("Impossible de mettre à jour l'ordre des états.");
+		}
 	}
 
+	public void selectEtat(final SelectEvent event) {
+		this.etatId = Integer.parseInt(event.getObject().toString());
+	}
+
+	/**
+	 * @param etatBean the etatBean to set
+	 */
 	public void setEtatBean(final EtatBean etatBean) {
 		this.etatBean = etatBean;
 	}
 
+	/**
+	 * @param etatDao the etatDao to set
+	 */
 	public void setEtatDao(final EtatDao etatDao) {
 		this.etatDao = etatDao;
 	}
 
+	/**
+	 * @param etatId the etatId to set
+	 */
+	public void setEtatId(final int etatId) {
+		this.etatId = etatId;
+	}
+
+	/**
+	 * @param etatOrderBean the etatOrderBean to set
+	 */
 	public void setEtatOrderBean(final EtatOrderBean etatOrderBean) {
 		this.etatOrderBean = etatOrderBean;
+	}
+
+	public void unselectEtat(final UnselectEvent event) {
+		this.etatId = -1;
 	}
 
 }

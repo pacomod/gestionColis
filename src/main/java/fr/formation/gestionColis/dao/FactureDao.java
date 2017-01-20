@@ -20,5 +20,4 @@ public class FactureDao extends AbstractDao<Facture> {
 	public List<Facture> readAll() {
 		return this.readAll(Facture.class);
 	}
-
 }

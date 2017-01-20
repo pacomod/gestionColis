@@ -1,28 +1,27 @@
 package fr.formation.gestionColis.bean;
 
 import java.io.Serializable;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.ViewScoped;
+import javax.faces.view.ViewScoped;
 
-import fr.formation.gestionColis.dao.EtatDao;
-import fr.formation.gestionColis.entity.Etat;
+import fr.formation.gestionColis.dao.CommandeDao;
+import fr.formation.gestionColis.entity.Commande;
 
 @ManagedBean
 @ViewScoped
-public class EtatOrderBean implements Serializable {
+public class ListCommandesBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	@ManagedProperty("#{etatDao}")
-	private EtatDao etatDao;
+	@ManagedProperty("#{commandeDao}")
+	private CommandeDao commandeDao;
 
-	private List<Etat> list;
+	private List<Commande> list;
 
 	@PostConstruct
 	public void _init() {
@@ -32,24 +31,24 @@ public class EtatOrderBean implements Serializable {
 	/**
 	 * @return the list
 	 */
-	public List<Etat> getList() {
+	public List<Commande> getList() {
 		return this.list;
 	}
 
 	public void refresh() {
-		this.list = this.etatDao.readAll();
+		this.list = this.commandeDao.readAll();
 		// Nouvelle notation Java 7 : Lambda.
-		Collections.sort(this.list,
-				(o1, o2) -> Integer.compare(o1.getOrdre(), o2.getOrdre()));
+//		Collections.sort(this.list,
+//				(o1, o2) -> Integer.compare(o1.getgetOrdre(), o2.getOrdre()));
 		// Nouvelle notation Java 8.
 		// Collections.sort(this.list, Comparator.comparingInt(Etat::getOrdre));
 	}
 
 	/**
-	 * @param etatDao the etatDao to set
+	 * @param commandeDao the commandeDao to set
 	 */
-	public void setEtatDao(final EtatDao etatDao) {
-		this.etatDao = etatDao;
+	public void setCommandeDao(final CommandeDao commandeDao) {
+		this.commandeDao = commandeDao;
 	}
 
 	/**
@@ -63,9 +62,9 @@ public class EtatOrderBean implements Serializable {
 			// etatTmp.setId(id);
 			// final Integer index = this.list.indexOf(etatTmp);
 			// Avec l'API Stream :
-			final Integer index = this.list.stream().map(Etat::getId)
+			final Integer index = this.list.stream().map(Commande::getId)
 					.collect(Collectors.toList()).indexOf(id);
-			this.list.get(index).setOrdre(i);
+			this.list.get(index);
 		}
 	}
 

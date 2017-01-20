@@ -24,37 +24,81 @@ import net.bootsfaces.utils.FacesMessages;
 @ViewScoped
 public class ProductController implements Serializable {
 
-	private static final long serialVersionUID = 1L;
-
 	private static final Logger LOGGER = LoggerFactory
 			.getLogger(ProductController.class);
 
-	@ManagedProperty("#{productDao}")
-	private ProductDao productDao;
+	private static final long serialVersionUID = 1L;
 
 	@ManagedProperty("#{productBean}")
 	private ProductBean productBean;
 
-	/**
-	 * Product list
-	 */
-	private List<Product> products;
+	@ManagedProperty("#{productDao}")
+	private ProductDao productDao;
 
 	/**
-	 * id of product to edit
+	 * Mémorisation de l'id du produit pour l'édition.
 	 */
 	private Integer productId;
 
-	private boolean deleteProduct;
+	private List<Product> products;
+
+	@PostConstruct
+	public void _init() {
+		ProductController.LOGGER.debug("Chargement de la liste des produits.");
+		this.products = this.productDao.readAll();
+	}
+
+	public String delete(final Product product) {
+		try {
+			this.productDao.delete(product.getId());
+			this.products.remove(product);
+			FacesMessages.info("Le produit a été supprimé avec succès.");
+		} catch (final DeleteEntityException e) {
+			ProductController.LOGGER
+					.error("Erreur lors de la suppression du produit d'id="
+							+ product.getId(), e);
+			FacesMessages.error(
+					"Impossible de supprimer le produit car il est utilisé dans un paquet.");
+		}
+		return "/views/product/display";
+	}
 
 	/**
-	 * creates or updates a product
+	 * @return the productId
 	 */
+	public Integer getProductId() {
+		return this.productId;
+	}
+
+	public List<Product> getProducts() {
+		return this.products;
+	}
+
+	/**
+	 * Méthode déclanchée avant le RenderView grâce au tag f:event dans
+	 * create.xhtml. On récupère l'id dans les paramètres de la requête HTTP et
+	 * si il est présent on charge productBean avec les informations de la base
+	 * de données.
+	 */
+	public void prepareEdit() {
+		final String paramId = FacesContext.getCurrentInstance()
+				.getExternalContext().getRequestParameterMap().get("productId");
+		if (paramId != null) {
+			this.productId = Integer.parseInt(paramId);
+			final Product editProduct = this.productDao
+					.read(this.getProductId());
+			this.productBean.setIntitule(editProduct.getIntitule());
+			this.productBean.setPoids(editProduct.getPoids());
+			this.productBean.setReference(editProduct.getReference());
+		}
+	}
+
 	public String save() {
 		final Product product = new Product();
 		product.setIntitule(this.productBean.getIntitule());
 		product.setPoids(this.productBean.getPoids());
 		product.setReference(this.productBean.getReference());
+
 		try {
 			if (this.productId == null) {
 				ProductController.LOGGER.debug("Création du nouveau produit {}",
@@ -63,83 +107,43 @@ public class ProductController implements Serializable {
 				FacesMessages.info("Le produit a été créé avec succès.");
 			} else {
 				product.setId(this.getProductId());
-				ProductController.LOGGER.info("Mise à jour du produit {}", product);
+				ProductController.LOGGER.debug("Mise à jour du produit {}",
+						product);
 				this.productDao.update(product);
 				FacesMessages.info("Le produit a été mis à jour avec succès.");
 			}
-
 		} catch (final CreateEntityException e) {
-			ProductController.LOGGER.error("Impossible de créer le produit.", e);
+			ProductController.LOGGER.error(
+					"Erreur pendant la création d'un nouveau produit.", e);
 			FacesMessages.error("Impossible de créer le produit.");
 		} catch (final UpdateEntityException e) {
-			ProductController.LOGGER.error(
-					"Impossible de mettre à jour le produit d'id=" + this.productId, e);
-			FacesMessages.error("Impossible de créer mettre à jour le produit.");
+			ProductController.LOGGER
+					.error("Erreur pendant la mise à jour du produit d'id="
+							+ this.productId, e);
+			FacesMessages.error("Impossible de mettre à jour ce produit.");
 		}
+
 		return "/views/dashboard";
 	}
 
-	public void prepareEdit() {
-		final String productId = FacesContext.getCurrentInstance()
-				.getExternalContext().getRequestParameterMap().get("productId");
-		final String deleteProduct = FacesContext.getCurrentInstance()
-				.getExternalContext().getRequestParameterMap().get("deletProduct");
-		if (deleteProduct != null) {
-			ProductController.LOGGER.info("deleteProduct set");
-			this.deleteProduct = true;
-		}
-		if (productId != null) {
-			ProductController.LOGGER.info("productId=" + productId);
-			this.productId = Integer.parseInt(productId);
-			final Product product = this.productDao.read(this.productId);
-			this.productBean.setIntitule(product.getIntitule());
-			this.productBean.setPoids(product.getPoids());
-			this.productBean.setReference(product.getReference());
-		}
-	}
-
-	public void setProductDao(final ProductDao productDao) {
-		this.productDao = productDao;
-	}
-
+	/**
+	 * @param productBean the productBean to set
+	 */
 	public void setProductBean(final ProductBean productBean) {
 		this.productBean = productBean;
 	}
 
-	@PostConstruct
-	public void _init() {
-		this.products = this.productDao.readAll();
+	/**
+	 * @param productDao the productDao to set
+	 */
+	public void setProductDao(final ProductDao productDao) {
+		this.productDao = productDao;
 	}
 
-	public String delete(final Product product) {
-		try {
-			this.productDao.delete(product.getId());
-			this.products.remove(product);
-			FacesMessages.info("Le produit a été effacé avec succès.");
-		} catch (final DeleteEntityException e) {
-			ProductController.LOGGER
-					.error("Erreur lors de la suppression du produit.");
-			FacesMessages.error("Impossible de supprimer le produit.");
-		}
-		return "/views/product/display";
-	}
-
-	public String update(final Product product) {
-		ProductController.LOGGER.debug("Update du produit.");
-		return "/views/product/create";
-	}
-
-	public List<Product> getProducts() {
-		ProductController.LOGGER.debug("Chargement de la liste des produits.");
-		return this.products;
-	}
-
-	public Integer getProductId() {
-		return this.productId;
-	}
-
+	/**
+	 * @param productId the productId to set
+	 */
 	public void setProductId(final Integer productId) {
 		this.productId = productId;
 	}
-
 }

@@ -11,13 +11,12 @@ import java.util.List;
  */
 @Entity
 @Table(name="coordonnees")
-@NamedQuery(name="Coordonnees.findAll", query="SELECT c FROM Coordonnees c")
-public class Coordonnees implements Serializable {
+@NamedQuery(name="Coordonnee.findAll", query="SELECT c FROM Coordonnee c")
+public class Coordonnee implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="ID")
 	private int id;
 
 	@Column(name="ADDRESS_LINE1")
@@ -26,19 +25,14 @@ public class Coordonnees implements Serializable {
 	@Column(name="ADDRESS_LINE2")
 	private String addressLine2;
 
-	@Column(name="CITY")
 	private String city;
 
-	@Column(name="COUNTRY")
 	private String country;
 
-	@Column(name="EMAIL")
 	private String email;
 
-	@Column(name="FIRSTNAME")
 	private String firstname;
 
-	@Column(name="LASTNAME")
 	private String lastname;
 
 	@Column(name="PHONE_NUMBER")
@@ -55,7 +49,7 @@ public class Coordonnees implements Serializable {
 	@OneToMany(mappedBy="coordonnee2")
 	private List<Paquet> paquets2;
 
-	public Coordonnees() {
+	public Coordonnee() {
 	}
 
 	public int getId() {

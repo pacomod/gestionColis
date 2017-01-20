@@ -3,17 +3,17 @@
              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence
              http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd"
              version="2.1">
-	<persistence-unit name="gestioncolis">
+	<persistence-unit name="gestionColis">
 		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-		<jta-data-source>jdbc/gestioncolis</jta-data-source>
-		<class>fr.formation.gestioncolis.entity.Bordereau</class>
-		<class>fr.formation.gestioncolis.entity.Product</class>
-		<class>fr.formation.gestioncolis.entity.Commande</class>
-		<class>fr.formation.gestioncolis.entity.Coordonnee</class>
-		<class>fr.formation.gestioncolis.entity.Etat</class>
-		<class>fr.formation.gestioncolis.entity.Facture</class>
-		<class>fr.formation.gestioncolis.entity.Liasse</class>
-		<class>fr.formation.gestioncolis.entity.Paquet</class>
+		<jta-data-source>jdbc/gestionColis</jta-data-source>
+		<class>fr.formation.gestionColis.entity.Bordereau</class>
+		<class>fr.formation.gestionColis.entity.Product</class>
+		<class>fr.formation.gestionColis.entity.Commande</class>
+		<class>fr.formation.gestionColis.entity.Coordonnee</class>
+		<class>fr.formation.gestionColis.entity.Etat</class>
+		<class>fr.formation.gestionColis.entity.Facture</class>
+		<class>fr.formation.gestionColis.entity.Liasse</class>
+		<class>fr.formation.gestionColis.entity.Paquet</class>
 		<properties>
 			<property name="hibernate.transaction.jta.platform"
 				value="org.hibernate.service.jta.platform.internal.SunOneJtaPlatform" />
