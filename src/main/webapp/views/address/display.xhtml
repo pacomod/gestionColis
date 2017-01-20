@@ -61,13 +61,15 @@
 							<div class="btn-toolbar">
 								<b:commandButton
 									action="#{coordonneesController.update(coordonnees)}"
-									class="btn btn-sm btn-primary" look="warning">
-									<span><i class="glyphicon glyphicon-edit"></i></span> Modifier
+									class="btn btn-sm btn-primary" look="warning" tooltip="Modifier">
+									<span><i class="glyphicon glyphicon-edit"></i></span>
+<!-- 									 Modifier -->
 							</b:commandButton>
 								<b:commandButton
 									action="#{coordonneesController.delete(coordonnees)}"
-									class="btn btn-sm btn-primary" look="danger">
-									<span><i class="glyphicon glyphicon-remove"></i></span> Supprimer
+									class="btn btn-sm btn-primary" look="danger" tooltip="Supprimer">
+									<span><i class="glyphicon glyphicon-remove"></i></span>
+<!-- 									 Supprimer -->
 							</b:commandButton>
 							</div>
 						</b:dataTableColumn>

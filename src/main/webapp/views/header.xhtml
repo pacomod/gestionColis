@@ -15,15 +15,16 @@
 
 <h:body>
 	<h:form>
-		<b:navBar brand="GestionColis" brandHref="#{request.contextPath}">
+		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+		<b:navBar brand="GestionColis" brandHref="#{request.contextPath}/views.dashboard.html">
 			<b:navbarLinks pull="left">
-				<b:dropMenu value="Gestion des adresses">
+				<b:dropMenu value="Adresses">
 					<b:navCommandLink value="Créer une adresse"
 						action="/views/address/create" />
 					<b:navCommandLink value="Liste des adresses"
 						action="/views/address/display" />
 				</b:dropMenu>
-				<b:dropMenu value="Gestion des produits">
+				<b:dropMenu value="Produits">
 					<b:navCommandLink value="Créer un produit"
 						action="/views/product/create" />
 					<b:navCommandLink value="Liste des produits"
@@ -31,10 +32,11 @@
 <!-- 					<b:navLink value="Créer des produits" -->
 <!-- 						href="#{request.contextPath}/views/product/create.xhtml" /> -->
 				</b:dropMenu>
-				<b:navLink value="Gestion des commandes" />
+				<b:navCommandLink value="État" action="/views/etat/manage"/>
+				<b:navLink value="Commandes" />
 			</b:navbarLinks>
 			<b:navbarLinks pull="right">
-				<h:outputLabel value="#{loginBean.name}" />
+				<h:outputText value="#{request.getUserPrincipal().getPrincipal().getUsername()}"/>
 			</b:navbarLinks>
 		</b:navBar>
 	</h:form>

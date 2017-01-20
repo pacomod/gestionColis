@@ -34,14 +34,21 @@
 						<b:dataTableColumn>
 							<f:facet name="header">Action</f:facet>
 							<div class="btn-toolbar">
-								<b:commandButton action="#{productController.update(product)}"
-									class="btn btn-sm btn-primary" look="warning">
-									<span><i class="glyphicon glyphicon-edit"></i></span> Modifier
-							</b:commandButton>
-								<b:commandButton action="#{productController.delete(product)}"
-									class="btn btn-sm btn-primary" look="danger">
-									<span><i class="glyphicon glyphicon-remove"></i></span> Supprimer
-							</b:commandButton>
+								<b:commandButton action="/views/product/create"
+									class="btn btn-sm btn-primary" look="warning" tooltip="Modifier">
+									<span><i class="glyphicon glyphicon-edit"></i></span>
+<!-- 									 Modifier -->
+									<f:param name="productId" value="#{product.id}" />
+								</b:commandButton>
+<!-- 								action="/views/product/create"  -->
+								<b:commandButton 
+									action="#{productController.delete(product)}"
+									class="btn btn-sm btn-primary" look="danger" tooltip="Supprimer">
+									<span><i class="glyphicon glyphicon-remove"></i></span>
+<!-- 									 Supprimer -->
+<!-- 									<f:param name="productId" value="#{product.id}" /> -->
+<!-- 									<f:param name="deletProduct" value="true" /> -->
+								</b:commandButton>
 							</div>
 						</b:dataTableColumn>
 					</b:dataTable>

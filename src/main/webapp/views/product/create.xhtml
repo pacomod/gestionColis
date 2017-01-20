@@ -9,8 +9,17 @@
 
 <ui:composition template="../template.xhtml">
 	<ui:define name="content">
+	<f:metadata>
+		<f:viewParam name="productId" value="#{productController.productId}"/>
+		<f:event listener="#{productController.prepareEdit}" type="preRenderView"/>
+	</f:metadata>
 		<b:container>
-			<h3>Création de produit</h3>
+			<ui:fragment rendered="#{empty productController.productId}">
+				<h3>Création de produit</h3>
+			</ui:fragment>
+			<ui:fragment rendered="#{!empty productController.productId}">
+				<h3>Modifier un produit</h3>
+			</ui:fragment>
 			<b:well>
 				<b:form>
 					<b:inputText label="Intitulé" value="#{productBean.intitule}" />
