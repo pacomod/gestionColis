@@ -13,6 +13,8 @@
 		<div class="factGlobal">
 			<div class="factListe">
 				<h:form>
+					<input type="hidden" name="${_csrf.parameterName}"
+				value="${_csrf.token}" />
 					<b:dataTable value="#{factureController.factures}" var="facture">
 						<b:dataTableColumn>
 							<f:facet name="header">Référence</f:facet>
@@ -49,6 +51,8 @@
 			</div>
 			<div class="factDetails">
 				<b:form id="factureInfosForm">
+					<input type="hidden" name="${_csrf.parameterName}"
+				value="${_csrf.token}" />
 					<p:panel header="Détails Facture" style="margin-bottom:10px;">
 
 						<p>

@@ -39,6 +39,8 @@
 			</div>
 			<div class="etat">
 				<b:form id="etatForm">
+					<input type="hidden" name="${_csrf.parameterName}"
+				value="${_csrf.token}" />
 					<h3>Créer un nouvel état</h3>
 					<b:inputText label="Nom" value="#{etatBean.nom}">
 

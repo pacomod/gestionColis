@@ -10,6 +10,8 @@
 	<h:body>
 		<h2>Effectuer une commande :</h2>
 		<h:form>
+			<input type="hidden" name="${_csrf.parameterName}"
+				value="${_csrf.token}" />
 			<b:selectOneMenu label="Sélectionner un produit" value="#{createCommandeBean.productId}">
 				<f:selectItem noSelectionOption="true" itemLabel="Sélectionner..." itemValue="" />
 				<f:selectItems value="#{productController.products}" var="product" itemValue="#{product.id}" itemLabel="#{product.intitule}"/>

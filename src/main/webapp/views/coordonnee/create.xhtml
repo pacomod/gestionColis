@@ -11,6 +11,8 @@
 	<ui:define name="content">
 		<h2>Créer une nouvelle coordonnée :</h2>
 		<b:form>
+			<input type="hidden" name="${_csrf.parameterName}"
+				value="${_csrf.token}" />
 			<b:inputText label="Prénom" value="#{coordonneeBean.firstname}" />
 			<b:inputText label="Nom" value="#{coordonneeBean.lastname}" />
 			<b:inputText label="Adresse" value="#{coordonneeBean.addressLine1}" />

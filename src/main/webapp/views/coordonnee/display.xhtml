@@ -11,6 +11,8 @@
 	<ui:define name="content">
 		<h2>Liste des coordonnées :</h2>
 		<h:form>
+			<input type="hidden" name="${_csrf.parameterName}"
+				value="${_csrf.token}" />
 			<b:dataTable value="#{coordonneeController.coordonnees}" var="coord">
 				<b:dataTableColumn>
 					<f:facet name="header">Id</f:facet>
