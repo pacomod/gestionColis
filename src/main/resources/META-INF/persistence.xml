@@ -3,9 +3,9 @@
              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence
              http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd"
              version="2.1">
-	<persistence-unit name="gestionColis">
+	<persistence-unit name="gestionColisGD">
 		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-		<jta-data-source>jdbc/gestionColis</jta-data-source>
+		<jta-data-source>jdbc/gestioncolis</jta-data-source>
 		<class>fr.formation.gestionColis.entity.Bordereau</class>
 		<class>fr.formation.gestionColis.entity.Product</class>
 		<class>fr.formation.gestionColis.entity.Commande</class>
