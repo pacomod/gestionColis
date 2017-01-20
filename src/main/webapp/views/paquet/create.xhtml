@@ -6,16 +6,10 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:b="http://bootsfaces.net/ui">
-	
-	<ui:insert name="header">
-		<ui:include src="header.xhtml" />
-	</ui:insert>
-	
-	<ui:insert name="content">
-		<p>Contenu par défaut de template.xhtml</p>
-	</ui:insert>
-	
-	<ui:insert name="footer">
-		<b:messages id="messages" />
-	</ui:insert>
+
+<ui:composition template="../template.xhtml">
+	<ui:define name="content">
+		<ui:include src="create-fragment.xhtml"/>
+	</ui:define>
+</ui:composition>
 </html>

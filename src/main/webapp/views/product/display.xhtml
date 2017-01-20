@@ -9,52 +9,41 @@
 
 <ui:composition template="../template.xhtml">
 	<ui:define name="content">
-		<b:container>
-			<h3>Liste des produits</h3>
-			<b:well>
-				<b:form>
-					<b:dataTable value="#{productController.products}" var="product"
-						customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/French.json">
-						<b:dataTableColumn style-class='hidden'>
-							<f:facet name="header">Id</f:facet>
-							<h:outputText value="#{product.id}" style-class='hidden' />
-						</b:dataTableColumn>
-						<b:dataTableColumn>
-							<f:facet name="header">Intitulé</f:facet>
-							<h:outputText value="#{product.intitule}" />
-						</b:dataTableColumn>
-						<b:dataTableColumn>
-							<f:facet name="header">Poids</f:facet>
-							<h:outputText value="#{product.poids}" />
-						</b:dataTableColumn>
-						<b:dataTableColumn>
-							<f:facet name="header">Référence</f:facet>
-							<h:outputText value="#{product.reference}" />
-						</b:dataTableColumn>
-						<b:dataTableColumn>
-							<f:facet name="header">Action</f:facet>
-							<div class="btn-toolbar">
-								<b:commandButton action="/views/product/create"
-									class="btn btn-sm btn-primary" look="warning" tooltip="Modifier">
-									<span><i class="glyphicon glyphicon-edit"></i></span>
-<!-- 									 Modifier -->
-									<f:param name="productId" value="#{product.id}" />
-								</b:commandButton>
-<!-- 								action="/views/product/create"  -->
-								<b:commandButton 
-									action="#{productController.delete(product)}"
-									class="btn btn-sm btn-primary" look="danger" tooltip="Supprimer">
-									<span><i class="glyphicon glyphicon-remove"></i></span>
-<!-- 									 Supprimer -->
-<!-- 									<f:param name="productId" value="#{product.id}" /> -->
-<!-- 									<f:param name="deletProduct" value="true" /> -->
-								</b:commandButton>
-							</div>
-						</b:dataTableColumn>
-					</b:dataTable>
-				</b:form>
-			</b:well>
-		</b:container>
+		<h2>Liste des produits :</h2>
+		<h:form>
+			<b:dataTable value="#{productController.products}" var="product">
+				<b:dataTableColumn>
+					<f:facet name="header">Id</f:facet>
+					<h:outputText value="#{product.id}" />
+				</b:dataTableColumn>
+				<b:dataTableColumn>
+					<f:facet name="header">Intitulé</f:facet>
+					<h:outputText value="#{product.intitule}" />
+				</b:dataTableColumn>
+				<b:dataTableColumn>
+					<f:facet name="header">Poids</f:facet>
+					<h:outputText value="#{product.poids}" />
+				</b:dataTableColumn>
+				<b:dataTableColumn>
+					<f:facet name="header">Référence</f:facet>
+					<h:outputText value="#{product.reference}" />
+				</b:dataTableColumn>
+				<b:dataTableColumn>
+					<f:facet name="header">&nbsp;</f:facet>
+					<b:commandButton value="Supprimer"
+						action="#{productController.delete(product)}" />
+					<!-- Bouton directement lié à un changement de vue, 
+					sans passer par une méthode Java. -->
+					<b:commandButton value="Editer"
+						action="/views/product/create">
+						<!-- Ajout d'un paramètre dans la requête POST générée
+						par le tag h:form. Cela permet sa récupération par
+						ExternalContext.getRequestParameterMap() dans un bean. -->
+						<f:param name="productId" value="#{product.id}" />
+					</b:commandButton>
+				</b:dataTableColumn>
+			</b:dataTable>
+		</h:form>
 	</ui:define>
 </ui:composition>
 </html>
