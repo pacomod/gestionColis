@@ -10,19 +10,26 @@
 <ui:composition template="../template.xhtml">
 	<ui:define name="content">
 		<b:container>
-			<h2>Créer une nouvelle coordonnée :</h2>
+			<h2>Créer une nouvelle coordonnée</h2>
 			<b:well>
 				<b:form>
 					<input type="hidden" name="${_csrf.parameterName}"
 						value="${_csrf.token}" />
-					<b:inputText label="Prénom" value="#{coordonneeBean.firstname}" />
-					<b:inputText label="Nom" value="#{coordonneeBean.lastname}" />
-					<b:inputText label="Adresse" value="#{coordonneeBean.addressLine1}" />
-					<b:inputText value="#{coordonneeBean.addressLine2}" />
-					<b:inputText label="Ville" value="#{coordonneeBean.city}" />
-					<b:inputText label="Pays" value="#{coordonneeBean.country}" />
-					<b:inputText type="number" label="Code postal"
-						value="#{coordonneeBean.postalCode}" />
+					<b:panelGrid colSpans="5,7">
+						<b:inputText label="Prénom" value="#{coordonneeBean.firstname}" />
+						<b:inputText label="Nom" value="#{coordonneeBean.lastname}" />
+					</b:panelGrid>
+					<b:panelGrid colSpans="12">
+						<h:outputLabel value="Adresse"/>
+						<b:inputText id="address1" value="#{coordonneeBean.addressLine1}" />
+						<b:inputText id="address2" value="#{coordonneeBean.addressLine2}" />
+					</b:panelGrid>
+					<b:panelGrid colSpans="2,7,3">
+						<b:inputText type="number" label="Code postal"
+							value="#{coordonneeBean.postalCode}" />
+						<b:inputText label="Ville" value="#{coordonneeBean.city}" />
+						<b:inputText label="Pays" value="#{coordonneeBean.country}" />
+					</b:panelGrid>
 					<b:commandButton value="Valider"
 						action="#{coordonneeController.save}" />
 				</b:form>
