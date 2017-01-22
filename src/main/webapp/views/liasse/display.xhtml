@@ -9,16 +9,21 @@
 
 <ui:composition template="../template.xhtml">
 	<ui:define name="content">
-		<h2>Gestion des liasses :</h2>
-
-		<b:dataTable value="#{liasseController.liasses}" var="liasse">
-			<b:dataTableColumn value="#{liasse.commandeBean.id}" label="Commande" />
-			<b:dataTableColumn value="#{liasse.id}" label="N° de liasse"/>
-			<b:dataTableColumn value="#{liasse.valeur}" label="Valeur" />
-			<b:dataTableColumn value="#{liasse.nature}"  label="Nature"/>
-			<b:dataTableColumn value="#{liasse.dateSignature}" order="asc" label="Date de prise en charge" />
-		</b:dataTable>
-
+		<b:container>
+			<h2>Gestion des liasses</h2>
+			<b:well>
+				<b:dataTable value="#{liasseController.liasses}" var="liasse"
+				customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/French.json">
+					<b:dataTableColumn value="#{liasse.commandeBean.id}"
+						label="Commande" />
+					<b:dataTableColumn value="#{liasse.id}" label="N° de liasse" />
+					<b:dataTableColumn value="#{liasse.valeur}" label="Valeur" />
+					<b:dataTableColumn value="#{liasse.nature}" label="Nature" />
+					<b:dataTableColumn value="#{liasse.dateSignature}" order="asc"
+						label="Date de prise en charge" />
+				</b:dataTable>
+			</b:well>
+		</b:container>
 	</ui:define>
 </ui:composition>
 </html>
