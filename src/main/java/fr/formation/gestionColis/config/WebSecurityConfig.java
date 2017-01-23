@@ -30,7 +30,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	// }
 
 	private String authoritiesByUserName() {
-		return "SELECT username, upper(role.nom) as authority"
+		return "SELECT username, upper(role.name) as authority"
 				+ " FROM user, role WHERE user.username = ? AND user.roleid = role.id";
 	}
 
