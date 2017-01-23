@@ -6,7 +6,8 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:p="http://primefaces.org/ui" xmlns:b="http://bootsfaces.net/ui">
+	xmlns:p="http://primefaces.org/ui" xmlns:b="http://bootsfaces.net/ui"
+	xmlns:gc="http://formation.org/facelets">
 
 
 <ui:composition template="../template.xhtml">
@@ -19,8 +20,7 @@
 					<h3>Liste Commandes</h3>
 					<b:well>
 						<h:form id="etatListForm">
-							<input type="hidden" name="${_csrf.parameterName}"
-								value="${_csrf.token}" />
+							<gc:csrf />
 							<p:orderList var="commande" itemLabel="#{commande.id}"
 								value="#{listCommandesBean.list}" itemValue="#{commande.id}">
 								<p:ajax event="select"
@@ -34,8 +34,7 @@
 					<h3>Créer Facture</h3>
 					<b:well>
 						<b:form id="etatForm">
-							<input type="hidden" name="${_csrf.parameterName}"
-								value="${_csrf.token}" />
+							<gc:csrf />
 							<b:inputText label="Id" value="#{factureController.factureId}"
 								rendered="#{!empty factureController.factureId}" readonly="true" />
 							<b:inputText label="Date Facture"

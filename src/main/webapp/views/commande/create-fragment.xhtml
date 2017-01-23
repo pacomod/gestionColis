@@ -5,15 +5,15 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:b="http://bootsfaces.net/ui">
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:gc="http://formation.org/facelets">
 
 <h:body>
 	<b:container>
 		<h2>Effectuer une commande :</h2>
 		<b:well>
 			<h:form>
-				<input type="hidden" name="${_csrf.parameterName}"
-					value="${_csrf.token}" />
+				<gc:csrf />
 				<b:selectOneMenu label="Sélectionner un produit"
 					value="#{createCommandeBean.productId}">
 					<f:selectItem noSelectionOption="true" itemLabel="Sélectionner..."

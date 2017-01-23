@@ -5,7 +5,8 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:b="http://bootsfaces.net/ui">
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:gc="http://formation.org/facelets">
 
 <ui:composition template="../template.xhtml">
 	<ui:define name="content">
@@ -14,19 +15,21 @@
 				<h2>Liste des bordereaux</h2>
 				<b:well>
 					<h:form>
-						<input type="hidden" name="${_csrf.parameterName}"
-							value="${_csrf.token}" />
 						<b:dataTable value="#{bordereauController.bordereaux}"
 							var="bordereau"
 							customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/French.json">>
+
 							<b:dataTableColumn>
+						<gc:csrf />
 								<f:facet name="header">Id</f:facet>
 								<h:outputText value="#{bordereau.id}" />
 							</b:dataTableColumn>
+
 							<b:dataTableColumn>
 								<f:facet name="header">Commande</f:facet>
 								<h:outputText value="#{bordereau.commandeBean.getId()}" />
 							</b:dataTableColumn>
+
 							<b:dataTableColumn>
 								<f:facet name="header">Date</f:facet>
 								<h:outputText value="#{bordereau.dateSignature}" />
@@ -42,8 +45,8 @@
 									look="info" tooltip="Détails"
 									action="#{bordereauController.detail(bordereau.id)}">
 								</b:commandButton>
-
 							</b:dataTableColumn>
+
 						</b:dataTable>
 					</h:form>
 				</b:well>
@@ -55,8 +58,7 @@
 					<b:well>
 
 						<h:form>
-							<input type="hidden" name="${_csrf.parameterName}"
-								value="${_csrf.token}" />
+							<gc:csrf />
 							<div>
 								<h4>Bordereau n° #{bordereauBean.id}</h4>
 								<b:inputTextarea readonly="true" label="Détail"

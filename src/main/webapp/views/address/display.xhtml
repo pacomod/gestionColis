@@ -5,7 +5,8 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:b="http://bootsfaces.net/ui">
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:gc="http://formation.org/facelets">
 
 <ui:composition template="../template.xhtml">
 	<ui:define name="content">
@@ -13,6 +14,7 @@
 			<h3>Liste des produits</h3>
 			<b:well>
 				<b:form>
+					<gc:csrf/>
 					<b:dataTable value="#{coordonneesController.coordonnees}"
 						var="coordonnees"
 						customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/French.json">

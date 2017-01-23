@@ -5,7 +5,8 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:b="http://bootsfaces.net/ui">
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:gc="http://formation.org/facelets">
 
 <ui:composition template="../template.xhtml">
 	<ui:define name="content">
@@ -13,8 +14,7 @@
 			<h2>Créer une nouvelle coordonnée</h2>
 			<b:well>
 				<b:form>
-					<input type="hidden" name="${_csrf.parameterName}"
-						value="${_csrf.token}" />
+					<gc:csrf />
 					<b:panelGrid colSpans="5,7">
 						<b:inputText label="Prénom" value="#{coordonneeBean.firstname}" />
 						<b:inputText label="Nom" value="#{coordonneeBean.lastname}" />

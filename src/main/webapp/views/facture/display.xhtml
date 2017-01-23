@@ -5,7 +5,8 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui">
+	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui"
+	xmlns:gc="http://formation.org/facelets">
 
 <ui:composition template="../template.xhtml">
 	<ui:define name="content">
@@ -15,8 +16,7 @@
 				<div class="factListe">
 					<b:well>
 						<h:form>
-							<input type="hidden" name="${_csrf.parameterName}"
-								value="${_csrf.token}" />
+							<gc:csrf />
 							<b:dataTable value="#{factureController.factures}" var="facture"
 								customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/French.json">
 								<b:dataTableColumn>
@@ -55,8 +55,7 @@
 				<div class="factDetails">
 					<b:well>
 						<b:form id="factureInfosForm">
-							<input type="hidden" name="${_csrf.parameterName}"
-								value="${_csrf.token}" />
+							<gc:csrf />
 							<p:panel header="Détails Facture" style="margin-bottom:10px;">
 
 								<p>
