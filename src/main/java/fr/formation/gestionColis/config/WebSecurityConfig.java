@@ -12,6 +12,8 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
@@ -36,6 +38,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	public void configureGlobal(final AuthenticationManagerBuilder auth)
 			throws DataSourceLookupFailureException, Exception {
 		auth.jdbcAuthentication().rolePrefix("ROLE_").dataSource(this.dataSource())
+				.passwordEncoder(this.passowrdEncoder())
 				.usersByUsernameQuery(this.usersByUserName())
 				.authoritiesByUsernameQuery(this.authoritiesByUserName());
 	}
@@ -54,6 +57,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		factory.setPersistenceProvider(new HibernatePersistenceProvider());
 		factory.setPackagesToScan("fr.formation.gestioncolis.entity");
 		return factory;
+	}
+
+	@Bean
+	public PasswordEncoder passowrdEncoder() {
+		return new BCryptPasswordEncoder();
 	}
 
 	@Bean
