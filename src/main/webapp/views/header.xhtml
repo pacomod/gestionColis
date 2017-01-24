@@ -64,12 +64,13 @@
 			</b:navbarLinks>
 		</h:form>
 		<b:navbarLinks pull="right">
-			<form method="post" action="#{request.getContextPath()}/logout">
+			<h:form id="disconnectForm" method="post" action="#{request.getContextPath()}/logout">
 				<gc:csrf/>
 				<h:outputText
 					value="${request.getUserPrincipal().getPrincipal().getUsername()}" />
-				<button>Se déconnecter</button>
-			</form>
+				<b:commandButton class="btn btn-sm btn-primary" look="warning"
+							tooltip="Se déconnecter" icon="log-out"></b:commandButton>
+			</h:form>
 		</b:navbarLinks>
 	</b:navBar>
 </h:body>

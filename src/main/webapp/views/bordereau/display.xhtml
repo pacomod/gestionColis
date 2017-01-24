@@ -11,16 +11,16 @@
 <ui:composition template="../template.xhtml">
 	<ui:define name="content">
 		<b:container>
-			<div class="col-md-5">
+			<div id="bordereauList">
 				<h2>Liste des bordereaux</h2>
 				<b:well>
 					<h:form>
+								<gc:csrf />
 						<b:dataTable value="#{bordereauController.bordereaux}"
 							var="bordereau"
-							customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/French.json">>
+							customLangUrl="//cdn.datatables.net/plug-ins/1.10.12/i18n/French.json">
 
 							<b:dataTableColumn>
-						<gc:csrf />
 								<f:facet name="header">Id</f:facet>
 								<h:outputText value="#{bordereau.id}" />
 							</b:dataTableColumn>
@@ -53,8 +53,8 @@
 
 			</div>
 			<h:panelGroup rendered="#{bordereauBean.id != null}">
-				<div class="col-md-7">
-					<h3>Detail du bordereau :</h3>
+				<div id="bordereauDetails">
+					<h3>Detail du bordereau</h3>
 					<b:well>
 
 						<h:form>
